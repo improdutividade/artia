@@ -3,6 +3,7 @@ import pandas as pd
 import datetime
 import base64
 import uuid
+import os
 
 st.set_page_config(
     page_title="Exxata Lançamento de Artia",
