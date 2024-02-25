@@ -1,14 +1,13 @@
 import streamlit as st
 import pandas as pd
 import datetime
-import pytz
 import os
 import base64
 from io import BytesIO
 import uuid
 
 st.set_page_config(
-    page_title="Exxata Produtividade",
+    page_title="Exxata Lançamento de Artia",
     page_icon="🐺",
     layout='centered',
     initial_sidebar_state='expanded'
@@ -124,8 +123,6 @@ class RegistroAtividades:
         st.session_state.registro['df'] = pd.DataFrame(columns=['ID', 'Nome_Usuário', 'Numero_Projeto', 'Atividade', 'Data', 'Início', 'Fim', 'Duração'])
         st.success("Dados zerados. Você pode iniciar novos registros.")
 
-# Restante do código permanece inalterado
-
 # Função auxiliar para criar botão de download
 def get_binary_file_downloader_html(bin_file, file_label='File'):
     with open(bin_file, 'rb') as f:
@@ -137,3 +134,17 @@ def get_binary_file_downloader_html(bin_file, file_label='File'):
 # Adicionado um identificador único para cada usuário usando o UUID
 user_id = str(uuid.uuid4())
 registro = RegistroAtividades(user_id)
+
+# Função principal
+def main():
+    st.sidebar.title("Menu de Navegação")
+    app_choice = st.sidebar.radio("Selecione uma opção:", ("App 1 - AtividadeTracker", "Informações", "Gráficos"))
+
+    if app_choice == "App 1 - AtividadeTracker":
+        registro.registrar_atividades()
+
+    elif app_choice == "Informações":
+        informacoes()
+
+    elif app_choice == "Gráficos":
+        graficos()
